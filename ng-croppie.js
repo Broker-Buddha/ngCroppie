@@ -31,7 +31,7 @@
                 update: '=',
                 ngModel: '=',
                 mobile: '@',
-                resultType: '@'
+                result: '='
             },
             link: function (scope, elem, attr) {
                 // defaults
@@ -41,8 +41,14 @@
                 if (typeof scope.boundry === 'undefined') {
                     scope.boundry = { w: null, h: null };
                 }
-                if (typeof scope.resultType === 'undefined') {
-                    scope.resultType = 'canvas';
+                if (typeof scope.result === 'undefined') {
+                    scope.result = {
+                        type: 'canvas'
+                    }
+                } else {
+                    if (typeof scope.result.type === 'undefined') {
+                        scope.result.type = 'canvas'
+                    }
                 }
 
                 // catches
@@ -106,7 +112,7 @@
                 // initialize interval only if action registered within ngCroppie container
                 croppieBody.addEventListener('mousedown', function() {
                     intervalID = window.setInterval(function() {
-                        c.result(scope.resultType).then(function(img) {
+                        c.result(scope.result).then(function(img) {
                             scope.$apply(function() {
                                 scope.ngModel = img;
                             });
@@ -120,7 +126,7 @@
                     // IE9, Chrome, Opera, Safari
                     croppieBody.addEventListener('mousewheel', function(evt) {
                         evt.preventDefault();
-                        c.result(scope.resultType).then(function(img) {
+                        c.result(scope.result).then(function(img) {
                             scope.$apply(function() {
                                 scope.ngModel = img;
                             });
@@ -130,7 +136,7 @@
                     // Firefox
                     croppieBody.addEventListener('DOMMouseScroll', function(evt) {
                         evt.preventDefault();
-                        c.result(scope.resultType).then(function(img) {
+                        c.result(scope.result).then(function(img) {
                             scope.$apply(function() {
                                 scope.ngModel = img;
                             });
@@ -160,7 +166,7 @@
                         throw 'ngCroppie: Cannot rotate without \'orientation\' option';
                     } else {
                         c.rotate(newValue - oldValue);
-                        c.result(scope.resultType).then(function(img) {
+                        c.result(scope.result).then(function(img) {
                             scope.$apply(function () {
                                 scope.ngModel = img;
                             });
@@ -175,7 +181,7 @@
                     } else {
                         c.bind(scope.src);
                         window.setInterval(function() {  // force delay for the ng-file-upload
-                            c.result(scope.resultType).then(function(img) {
+                            c.result(scope.result).then(function(img) {
                                 scope.$apply(function () {
                                     scope.ngModel = img;
                                 });
