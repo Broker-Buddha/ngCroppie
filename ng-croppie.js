@@ -27,6 +27,7 @@
                 zoomslider: '@',
                 exif: '@',
                 enforceBoundary: '@',
+                enableResize: '=',
                 orientation: '@',
                 update: '=',
                 ngModel: '=',
@@ -90,6 +91,7 @@
                     mouseWheelZoom: mouseZoom,
                     showZoomer: zoomSlider,
                     enableExif: scope.exif,
+                    enableResize: scope.enableResize,
                     enforceBoundary: scope.enforceBoundary,
                     enableOrientation: scope.orientation
                 };
